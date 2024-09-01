@@ -2,7 +2,7 @@
 
 # Update package list and install required packages
 sudo apt-get update
-sudo apt-get install -y wget curl unzip python3 python3-pip git
+sudo apt-get install -y wget curl unzip python3 python3-pip
 
 # Install Google Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -22,34 +22,33 @@ sudo chmod +x /usr/local/bin/chromedriver
 # Install Selenium
 pip3 install selenium
 
-# Clone the GitHub repository
-sudo git clone https://github.com/absaro/autoCWlin.git /root/autoCWlin
+# Download the repository as a ZIP file
+wget https://github.com/absaro/autoCWlin/archive/refs/heads/main.zip -O /root/autoCWlin.zip
+
+# Unzip the downloaded file
+unzip /root/autoCWlin.zip -d /root
 
 # Move the 'scripts' folder to the root directory
-sudo mv /root/autoCWlin/scripts /root/scripts
+sudo mv /root/autoCWlin-main/scripts /root/scripts
 
-# Move the 'run_all_scripts.sh' to the root directory
-sudo mv /root/autoCWlin/run_all_scripts.sh /root/
+# Move the 'run_all_scripts.sh' and 'passive_income.sh' to the root directory
+sudo mv /root/autoCWlin-main/run_all_scripts.sh /root/
+sudo mv /root/autoCWlin-main/passive_income.sh /root/
 
 # Delete the 'README.md' file
-sudo rm /root/autoCWlin/README.md
+sudo rm /root/autoCWlin-main/README.md
 
-# Remove the now empty repository directory
-sudo rmdir /root/autoCWlin
+# Remove the now empty directory
+sudo rm -rf /root/autoCWlin-main
 
-# Ensure the run_all_scripts.sh is executable
+# Ensure the run_all_scripts.sh and passive_income.sh are executable
 sudo chmod +x /root/run_all_scripts.sh
+sudo chmod +x /root/passive_income.sh
 
 # Configure cron job to run the wrapper script daily
 (crontab -l 2>/dev/null; echo "0 0 * * * /root/run_all_scripts.sh") | crontab -
 
-# Download the passive_income.sh script from GitHub
-wget https://github.com/absaro/autoCWlin/raw/main/passive_income.sh -O /root/passive_income.sh
-
-# Make the scripts executable
-chmod +x /root/passive_income.sh
-
 # Run the passive_income.sh script
-/root/passive_income.sh
+/root/passive_income.sh &
 
 echo "Setup complete!"
