@@ -8,7 +8,7 @@
 
 2. **Download and Run `setup.sh`:**
    ```bash
-   wget https://github.com/absaro/autoCWlin/raw/main/setup.sh -O /root/setup.sh
+   wget https://github.com/Tech-Rx/autoCWlin/raw/main/setup.sh -O /root/setup.sh
    chmod +x /root/setup.sh
    /root/setup.sh
    ```
